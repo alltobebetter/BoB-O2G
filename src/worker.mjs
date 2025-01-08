@@ -32,7 +32,7 @@ export default {
           return handleModels(apiKey)
             .catch(errHandler);
         default:
-          throw new HttpError("404 Not Found", 404);
+          throw new HttpError("本页面为404页面，请通过OpenAI格式进行调用，传入Key参数为Gemini的Key即可。", 404);
       }
     } catch (err) {
       return errHandler(err);
