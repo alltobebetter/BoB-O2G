@@ -1,65 +1,235 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OpenAI to Gemini API Proxy</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <title>AIBoB GO 代理服务</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        .container { 
-            max-width: 800px; 
-            margin: 0 auto; 
-            padding: 2rem;
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         .code-block {
-            background: #f4f4f4;
-            padding: 1rem;
-            border-radius: 4px;
+            background: #1e293b;
+            color: #e2e8f0;
+            font-family: 'Fira Code', monospace;
+            overflow-x: auto;
+        }
+        @media (max-width: 640px) {
+            .code-block {
+                font-size: 14px;
+            }
         }
     </style>
 </head>
-<body>
-    <main class="container">
-        <h1>OpenAI to Gemini API Proxy</h1>
-        <p>这是一个 OpenAI API 兼容的 Gemini API 代理服务。</p>
-        
-        <article>
-            <h2>如何使用</h2>
-            <p>本服务提供以下 API 端点：</p>
-            <ul>
-                <li><code>/v1/chat/completions</code> - 聊天完成</li>
-                <li><code>/v1/embeddings</code> - 文本嵌入</li>
-                <li><code>/v1/models</code> - 获取可用模型列表</li>
-            </ul>
-            
-            <h3>配置示例</h3>
-            <div class="code-block">
-                <p>API Base URL:</p>
-                <code>https://[your-domain]/v1</code>
-                
-                <p>环境变量设置:</p>
-                <code>OPENAI_API_BASE="https://[your-domain]/v1"</code>
-                <br>
-                <code>OPENAI_API_KEY="your-gemini-api-key"</code>
+<body class="min-h-screen">
+    <!-- 顶部链接栏 -->
+    <div class="bg-white border-b">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex space-x-6 overflow-x-auto whitespace-nowrap py-1 sm:py-0">
+                    <a href="https://aibob.click" class="text-gray-600 hover:text-yellow-600 flex items-center space-x-2 transition-colors">
+                        <i class="fas fa-home"></i>
+                        <span class="font-medium">AIBoB 主站</span>
+                    </a>
+                    <a href="https://sms.aibob.click" class="text-gray-600 hover:text-yellow-600 flex items-center space-x-2 transition-colors">
+                        <i class="fas fa-sms"></i>
+                        <span class="font-medium">临时手机号</span>
+                    </a>
+                    <a href="https://mail.aibob.click" class="text-gray-600 hover:text-yellow-600 flex items-center space-x-2 transition-colors">
+                        <i class="fas fa-envelope"></i>
+                        <span class="font-medium">临时邮箱</span>
+                    </a>
+                </div>
+                <div class="hidden sm:flex items-center">
+                    <a href="https://github.com/PublicAffairs/openai-gemini" target="_blank" 
+                       class="text-gray-600 hover:text-yellow-600 transition-colors">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                </div>
             </div>
-        </article>
-        
-        <article>
-            <h2>注意事项</h2>
-            <ul>
-                <li>需要使用 Gemini API Key 作为认证密钥</li>
-                <li>支持流式响应</li>
-                <li>支持图片和音频输入</li>
-                <li>默认使用 gemini-1.5-pro-latest 模型</li>
-            </ul>
-        </article>
-        
-        <footer>
-            <p>
-                <a href="https://github.com/PublicAffairs/openai-gemini" target="_blank">GitHub 项目地址</a> |
-                <a href="https://ai.google.dev/tutorials/web_quickstart" target="_blank">获取 Gemini API Key</a>
+        </div>
+    </div>
+
+    <!-- 主要内容区 -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <!-- 头部区域 -->
+        <header class="text-center mb-12 sm:mb-16">
+            <h1 class="text-3xl sm:text-4xl font-bold mb-4 gradient-text">
+                AIBoB GO 代理服务
+            </h1>
+            <p class="text-lg sm:text-xl text-gray-600">
+                使用 Gemini API，享受 OpenAI 生态系统
             </p>
+        </header>
+
+        <!-- 两栏布局 -->
+        <div class="grid lg:grid-cols-2 gap-8 sm:gap-12">
+            <!-- 左栏：快速开始 -->
+            <div class="space-y-8">
+                <section class="bg-white shadow p-6 sm:p-8">
+                    <h2 class="text-xl sm:text-2xl font-semibold mb-6 flex items-center">
+                        <i class="fas fa-rocket mr-3 text-yellow-600"></i>
+                        快速开始
+                    </h2>
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="font-medium mb-2">1. 获取 Gemini API Key</h3>
+                            <p class="text-gray-600 mb-2">您可以直接通过 Gemini 的 APIKey 对 AIBoB Go 进行调用。</p>
+                        </div>
+                        
+                        <div>
+                            <h3 class="font-medium mb-2">2. 可用 API 地址</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <p class="text-sm text-gray-500 mb-1">基础地址：</p>
+                                    <div class="code-block p-4">
+                                        <code>https://go.aibob.click</code>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500 mb-1">OpenAI 格式基础地址：</p>
+                                    <div class="code-block p-4">
+                                        <code>https://go.aibob.click/v1</code>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500 mb-1">完整聊天接口地址：</p>
+                                    <div class="code-block p-4">
+                                        <code>https://go.aibob.click/v1/chat/completions</code>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="font-medium mb-2">3. 配置环境变量</h3>
+                            <div class="code-block p-4">
+                                <code>OPENAI_API_BASE="https://go.aibob.click/v1"</code>
+                                <br>
+                                <code>OPENAI_API_KEY="your-gemini-api-key"</code>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="bg-white shadow p-6 sm:p-8">
+                    <h2 class="text-xl sm:text-2xl font-semibold mb-6 flex items-center">
+                        <i class="fas fa-code mr-3 text-yellow-600"></i>
+                        代码示例
+                    </h2>
+                    <div class="code-block p-4">
+                        <pre><code class="language-python">from openai import OpenAI
+
+client = OpenAI(
+    base_url="https://go.aibob.click/v1",
+    api_key="your-gemini-api-key"
+)
+
+response = client.chat.completions.create(
+    model="gemini-1.5-pro-latest",
+    messages=[
+        {"role": "user", "content": "你好"}
+    ]
+)</code></pre>
+                    </div>
+                </section>
+            </div>
+
+            <!-- 右栏：特性和端点 -->
+            <div class="space-y-8">
+                <section class="bg-white shadow p-6 sm:p-8">
+                    <h2 class="text-xl sm:text-2xl font-semibold mb-6 flex items-center">
+                        <i class="fas fa-plug mr-3 text-yellow-600"></i>
+                        可用端点
+                    </h2>
+                    <div class="space-y-4">
+                        <div class="p-4 border border-gray-200 hover:border-yellow-500 transition-colors">
+                            <h3 class="font-medium mb-2">Chat Completions</h3>
+                            <code class="text-sm text-gray-600">/v1/chat/completions</code>
+                            <p class="text-sm text-gray-500 mt-2">用于生成对话响应</p>
+                        </div>
+                        <div class="p-4 border border-gray-200 hover:border-yellow-500 transition-colors">
+                            <h3 class="font-medium mb-2">Embeddings</h3>
+                            <code class="text-sm text-gray-600">/v1/embeddings</code>
+                            <p class="text-sm text-gray-500 mt-2">用于生成文本嵌入向量</p>
+                        </div>
+                        <div class="p-4 border border-gray-200 hover:border-yellow-500 transition-colors">
+                            <h3 class="font-medium mb-2">Models</h3>
+                            <code class="text-sm text-gray-600">/v1/models</code>
+                            <p class="text-sm text-gray-500 mt-2">获取可用模型列表</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="bg-white shadow p-6 sm:p-8">
+                    <h2 class="text-xl sm:text-2xl font-semibold mb-6 flex items-center">
+                        <i class="fas fa-star mr-3 text-yellow-600"></i>
+                        核心特性
+                    </h2>
+                    <div class="grid gap-6">
+                        <div class="flex items-start">
+                            <i class="fas fa-tachometer-alt text-yellow-500 mt-1 mr-3"></i>
+                            <div>
+                                <h3 class="font-medium mb-1">高性能服务</h3>
+                                <p class="text-gray-600 text-sm">使用 Edge Functions 部署，全球节点加速</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-stream text-yellow-500 mt-1 mr-3"></i>
+                            <div>
+                                <h3 class="font-medium mb-1">流式响应</h3>
+                                <p class="text-gray-600 text-sm">支持实时流式返回对话内容</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-image text-yellow-500 mt-1 mr-3"></i>
+                            <div>
+                                <h3 class="font-medium mb-1">多模态支持</h3>
+                                <p class="text-gray-600 text-sm">支持图片和音频输入处理</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-plug text-yellow-500 mt-1 mr-3"></i>
+                            <div>
+                                <h3 class="font-medium mb-1">即插即用</h3>
+                                <p class="text-gray-600 text-sm">完全兼容 OpenAI SDK，无需修改代码</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- 页脚 -->
+        <footer class="mt-12 sm:mt-16 text-center border-t pt-8">
+            <p class="text-gray-500">
+                AIBoB GO 代理服务 - 让 AI 开发更简单
+            </p>
+            <div class="flex justify-center space-x-6 mt-4">
+                <a href="https://github.com/PublicAffairs/openai-gemini" target="_blank" 
+                   class="text-gray-600 hover:text-yellow-600 transition-colors">
+                    <i class="fab fa-github mr-2"></i>
+                    GitHub 项目
+                </a>
+                <a href="https://ai.google.dev/tutorials/web_quickstart" target="_blank"
+                   class="text-gray-600 hover:text-yellow-600 transition-colors">
+                    <i class="fas fa-book mr-2"></i>
+                    开发文档
+                </a>
+            </div>
         </footer>
-    </main>
+    </div>
 </body>
-</html> 
+</html>
