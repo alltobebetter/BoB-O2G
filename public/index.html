@@ -32,100 +32,141 @@
                 font-size: 14px;
             }
         }
+        /* 加载动画样式 */
+        .loader {
+            width: 48px;
+            height: 48px;
+            border: 5px solid #eab308;
+            border-bottom-color: transparent;
+            border-radius: 50%;
+            display: inline-block;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+        }
+        @keyframes rotation {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        #loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #f8fafc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        #content {
+            display: none;
+        }
+        .fade-out {
+            opacity: 0;
+            transition: opacity 0.3s ease-out;
+        }
     </style>
 </head>
 <body class="min-h-screen">
-    <!-- 顶部链接栏 -->
-    <div class="bg-white border-b">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex space-x-6 overflow-x-auto whitespace-nowrap py-1 sm:py-0">
-                    <a href="https://aibob.click" class="text-gray-600 hover:text-yellow-600 flex items-center space-x-2 transition-colors">
-                        <i class="fas fa-home"></i>
-                        <span class="font-medium">AIBoB 主站</span>
-                    </a>
-                    <a href="https://sms.aibob.click" class="text-gray-600 hover:text-yellow-600 flex items-center space-x-2 transition-colors">
-                        <i class="fas fa-sms"></i>
-                        <span class="font-medium">临时手机号</span>
-                    </a>
-                    <a href="https://mail.aibob.click" class="text-gray-600 hover:text-yellow-600 flex items-center space-x-2 transition-colors">
-                        <i class="fas fa-envelope"></i>
-                        <span class="font-medium">临时邮箱</span>
-                    </a>
+    <!-- 加载动画 -->
+    <div id="loading">
+        <span class="loader"></span>
+    </div>
+
+    <!-- 页面内容 -->
+    <div id="content">
+        <!-- 顶部链接栏 -->
+        <div class="bg-white border-b">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <div class="flex space-x-6 overflow-x-auto whitespace-nowrap py-1 sm:py-0">
+                        <a href="https://aibob.click" class="text-gray-600 hover:text-yellow-600 flex items-center space-x-2 transition-colors">
+                            <i class="fas fa-home"></i>
+                            <span class="font-medium">AIBoB 主站</span>
+                        </a>
+                        <a href="https://sms.aibob.click" class="text-gray-600 hover:text-yellow-600 flex items-center space-x-2 transition-colors">
+                            <i class="fas fa-sms"></i>
+                            <span class="font-medium">临时手机号</span>
+                        </a>
+                        <a href="https://mail.aibob.click" class="text-gray-600 hover:text-yellow-600 flex items-center space-x-2 transition-colors">
+                            <i class="fas fa-envelope"></i>
+                            <span class="font-medium">临时邮箱</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- 主要内容区 -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-        <!-- 头部区域 -->
-        <header class="text-center mb-12 sm:mb-16">
-            <h1 class="text-3xl sm:text-4xl font-bold mb-4 gradient-text">
-                AIBoB GO 代理服务
-            </h1>
-            <p class="text-lg sm:text-xl text-gray-600">
-                使用 Gemini API，享受 OpenAI 生态系统
-            </p>
-        </header>
+        <!-- 主要内容区 -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+            <!-- 头部区域 -->
+            <header class="text-center mb-12 sm:mb-16">
+                <h1 class="text-3xl sm:text-4xl font-bold mb-4 gradient-text">
+                    AIBoB GO 代理服务
+                </h1>
+                <p class="text-lg sm:text-xl text-gray-600">
+                    使用 Gemini API，享受 OpenAI 生态系统
+                </p>
+            </header>
 
-        <!-- 两栏布局 -->
-        <div class="grid lg:grid-cols-2 gap-8 sm:gap-12">
-            <!-- 左栏：快速开始 -->
-            <div class="space-y-8">
-                <section class="bg-white shadow p-6 sm:p-8">
-                    <h2 class="text-xl sm:text-2xl font-semibold mb-6 flex items-center">
-                        <i class="fas fa-rocket mr-3 text-yellow-600"></i>
-                        快速开始
-                    </h2>
-                    <div class="space-y-6">
-                        <div>
-                            <h3 class="font-medium mb-2">1. 获取 Gemini API Key</h3>
-                            <p class="text-gray-600 mb-2">您可以直接通过 Gemini 的 APIKey 对 AIBoB Go 进行调用。</p>
-                        </div>
-                        
-                        <div>
-                            <h3 class="font-medium mb-2">2. 可用 API 地址</h3>
-                            <div class="space-y-4">
-                                <div>
-                                    <p class="text-sm text-gray-500 mb-1">基础地址：</p>
-                                    <div class="code-block p-4">
-                                        <code>https://go.aibob.click</code>
+            <!-- 两栏布局 -->
+            <div class="grid lg:grid-cols-2 gap-8 sm:gap-12">
+                <!-- 左栏：快速开始 -->
+                <div class="space-y-8">
+                    <section class="bg-white shadow p-6 sm:p-8">
+                        <h2 class="text-xl sm:text-2xl font-semibold mb-6 flex items-center">
+                            <i class="fas fa-rocket mr-3 text-yellow-600"></i>
+                            快速开始
+                        </h2>
+                        <div class="space-y-6">
+                            <div>
+                                <h3 class="font-medium mb-2">1. 获取 Gemini API Key</h3>
+                                <p class="text-gray-600 mb-2">您可以直接通过 Gemini 的 APIKey 对 AIBoB Go 进行调用。</p>
+                            </div>
+                            
+                            <div>
+                                <h3 class="font-medium mb-2">2. 可用 API 地址</h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <p class="text-sm text-gray-500 mb-1">基础地址：</p>
+                                        <div class="code-block p-4">
+                                            <code>https://go.aibob.click</code>
+                                        </div>
                                     </div>
-                                </div>
-                                <div>
-                                    <p class="text-sm text-gray-500 mb-1">OpenAI 格式基础地址：</p>
-                                    <div class="code-block p-4">
-                                        <code>https://go.aibob.click/v1</code>
+                                    <div>
+                                        <p class="text-sm text-gray-500 mb-1">OpenAI 格式基础地址：</p>
+                                        <div class="code-block p-4">
+                                            <code>https://go.aibob.click/v1</code>
+                                        </div>
                                     </div>
-                                </div>
-                                <div>
-                                    <p class="text-sm text-gray-500 mb-1">完整聊天接口地址：</p>
-                                    <div class="code-block p-4">
-                                        <code>https://go.aibob.click/v1/chat/completions</code>
+                                    <div>
+                                        <p class="text-sm text-gray-500 mb-1">完整聊天接口地址：</p>
+                                        <div class="code-block p-4">
+                                            <code>https://go.aibob.click/v1/chat/completions</code>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div>
-                            <h3 class="font-medium mb-2">3. 配置环境变量</h3>
-                            <div class="code-block p-4">
-                                <code>OPENAI_API_BASE="https://go.aibob.click/v1"</code>
-                                <br>
-                                <code>OPENAI_API_KEY="your-gemini-api-key"</code>
+                            <div>
+                                <h3 class="font-medium mb-2">3. 配置环境变量</h3>
+                                <div class="code-block p-4">
+                                    <code>OPENAI_API_BASE="https://go.aibob.click/v1"</code>
+                                    <br>
+                                    <code>OPENAI_API_KEY="your-gemini-api-key"</code>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </section>
+                    </section>
 
-                <section class="bg-white shadow p-6 sm:p-8">
-                    <h2 class="text-xl sm:text-2xl font-semibold mb-6 flex items-center">
-                        <i class="fas fa-code mr-3 text-yellow-600"></i>
-                        代码示例
-                    </h2>
-                    <div class="code-block p-4">
-                        <pre><code class="language-python">from openai import OpenAI
+                    <section class="bg-white shadow p-6 sm:p-8">
+                        <h2 class="text-xl sm:text-2xl font-semibold mb-6 flex items-center">
+                            <i class="fas fa-code mr-3 text-yellow-600"></i>
+                            代码示例
+                        </h2>
+                        <div class="code-block p-4">
+                            <pre><code class="language-python">from openai import OpenAI
 
 client = OpenAI(
     base_url="https://go.aibob.click/v1",
@@ -138,81 +179,96 @@ response = client.chat.completions.create(
         {"role": "user", "content": "你好"}
     ]
 )</code></pre>
-                    </div>
-                </section>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- 右栏：特性和端点 -->
+                <div class="space-y-8">
+                    <section class="bg-white shadow p-6 sm:p-8">
+                        <h2 class="text-xl sm:text-2xl font-semibold mb-6 flex items-center">
+                            <i class="fas fa-plug mr-3 text-yellow-600"></i>
+                            可用端点
+                        </h2>
+                        <div class="space-y-4">
+                            <div class="p-4 border border-gray-200 hover:border-yellow-500 transition-colors">
+                                <h3 class="font-medium mb-2">Chat Completions</h3>
+                                <code class="text-sm text-gray-600">/v1/chat/completions</code>
+                                <p class="text-sm text-gray-500 mt-2">用于生成对话响应</p>
+                            </div>
+                            <div class="p-4 border border-gray-200 hover:border-yellow-500 transition-colors">
+                                <h3 class="font-medium mb-2">Embeddings</h3>
+                                <code class="text-sm text-gray-600">/v1/embeddings</code>
+                                <p class="text-sm text-gray-500 mt-2">用于生成文本嵌入向量</p>
+                            </div>
+                            <div class="p-4 border border-gray-200 hover:border-yellow-500 transition-colors">
+                                <h3 class="font-medium mb-2">Models</h3>
+                                <code class="text-sm text-gray-600">/v1/models</code>
+                                <p class="text-sm text-gray-500 mt-2">获取可用模型列表</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="bg-white shadow p-6 sm:p-8">
+                        <h2 class="text-xl sm:text-2xl font-semibold mb-6 flex items-center">
+                            <i class="fas fa-star mr-3 text-yellow-600"></i>
+                            核心特性
+                        </h2>
+                        <div class="grid gap-6">
+                            <div class="flex items-start">
+                                <i class="fas fa-tachometer-alt text-yellow-500 mt-1 mr-3"></i>
+                                <div>
+                                    <h3 class="font-medium mb-1">高性能服务</h3>
+                                    <p class="text-gray-600 text-sm">使用 Edge Functions 部署，全球节点加速</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-stream text-yellow-500 mt-1 mr-3"></i>
+                                <div>
+                                    <h3 class="font-medium mb-1">流式响应</h3>
+                                    <p class="text-gray-600 text-sm">支持实时流式返回对话内容</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-image text-yellow-500 mt-1 mr-3"></i>
+                                <div>
+                                    <h3 class="font-medium mb-1">多模态支持</h3>
+                                    <p class="text-gray-600 text-sm">支持图片和音频输入处理</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-plug text-yellow-500 mt-1 mr-3"></i>
+                                <div>
+                                    <h3 class="font-medium mb-1">即插即用</h3>
+                                    <p class="text-gray-600 text-sm">完全兼容 OpenAI SDK，无需修改代码</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
             </div>
 
-            <!-- 右栏：特性和端点 -->
-            <div class="space-y-8">
-                <section class="bg-white shadow p-6 sm:p-8">
-                    <h2 class="text-xl sm:text-2xl font-semibold mb-6 flex items-center">
-                        <i class="fas fa-plug mr-3 text-yellow-600"></i>
-                        可用端点
-                    </h2>
-                    <div class="space-y-4">
-                        <div class="p-4 border border-gray-200 hover:border-yellow-500 transition-colors">
-                            <h3 class="font-medium mb-2">Chat Completions</h3>
-                            <code class="text-sm text-gray-600">/v1/chat/completions</code>
-                            <p class="text-sm text-gray-500 mt-2">用于生成对话响应</p>
-                        </div>
-                        <div class="p-4 border border-gray-200 hover:border-yellow-500 transition-colors">
-                            <h3 class="font-medium mb-2">Embeddings</h3>
-                            <code class="text-sm text-gray-600">/v1/embeddings</code>
-                            <p class="text-sm text-gray-500 mt-2">用于生成文本嵌入向量</p>
-                        </div>
-                        <div class="p-4 border border-gray-200 hover:border-yellow-500 transition-colors">
-                            <h3 class="font-medium mb-2">Models</h3>
-                            <code class="text-sm text-gray-600">/v1/models</code>
-                            <p class="text-sm text-gray-500 mt-2">获取可用模型列表</p>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="bg-white shadow p-6 sm:p-8">
-                    <h2 class="text-xl sm:text-2xl font-semibold mb-6 flex items-center">
-                        <i class="fas fa-star mr-3 text-yellow-600"></i>
-                        核心特性
-                    </h2>
-                    <div class="grid gap-6">
-                        <div class="flex items-start">
-                            <i class="fas fa-tachometer-alt text-yellow-500 mt-1 mr-3"></i>
-                            <div>
-                                <h3 class="font-medium mb-1">高性能服务</h3>
-                                <p class="text-gray-600 text-sm">使用 Edge Functions 部署，全球节点加速</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start">
-                            <i class="fas fa-stream text-yellow-500 mt-1 mr-3"></i>
-                            <div>
-                                <h3 class="font-medium mb-1">流式响应</h3>
-                                <p class="text-gray-600 text-sm">支持实时流式返回对话内容</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start">
-                            <i class="fas fa-image text-yellow-500 mt-1 mr-3"></i>
-                            <div>
-                                <h3 class="font-medium mb-1">多模态支持</h3>
-                                <p class="text-gray-600 text-sm">支持图片和音频输入处理</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start">
-                            <i class="fas fa-plug text-yellow-500 mt-1 mr-3"></i>
-                            <div>
-                                <h3 class="font-medium mb-1">即插即用</h3>
-                                <p class="text-gray-600 text-sm">完全兼容 OpenAI SDK，无需修改代码</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
+            <!-- 页脚 -->
+            <footer class="mt-12 sm:mt-16 text-center border-t pt-8">
+                <p class="text-gray-500">
+                    AIBoB GO 代理服务 - 让 AI 开发更简单
+                </p>
+            </footer>
         </div>
-
-        <!-- 页脚 -->
-        <footer class="mt-12 sm:mt-16 text-center border-t pt-8">
-            <p class="text-gray-500">
-                AIBoB GO 代理服务 - 让 AI 开发更简单
-            </p>
-        </footer>
     </div>
+
+    <script>
+        document.onreadystatechange = function() {
+            if (document.readyState === 'complete') {
+                // 添加淡出效果
+                document.getElementById('loading').classList.add('fade-out');
+                // 延迟显示内容，等待加载动画淡出
+                setTimeout(() => {
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('content').style.display = 'block';
+                }, 300);
+            }
+        };
+    </script>
 </body>
 </html>
