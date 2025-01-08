@@ -32,7 +32,12 @@ export default {
           return handleModels(apiKey)
             .catch(errHandler);
         default:
-          throw new HttpError("本页面为404页面，请通过OpenAI格式进行调用，传入Key参数为Gemini的Key即可。", 404);
+          if (pathname === "/" || pathname === "") {
+            return new Response(await fetch(new URL("/index.html", request.url)).then(res => res.text()), {
+              headers: { "Content-Type": "text/html" },
+            });
+          }
+          throw new HttpError("请通过 OpenAI 格式调用 API，使用 Gemini API Key 作为认证密钥。", 404);
       }
     } catch (err) {
       return errHandler(err);
